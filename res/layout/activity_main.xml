@@ -1,0 +1,64 @@
+<TableLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="com.m2m.senddata.MainActivity" >
+
+	<TableRow>
+	<TextView 
+		android:id="@+id/xaccelero"
+		android:text="X Coordinate accelerometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+	
+	<TableRow>
+	<TextView 
+		android:id="@+id/yaccelero"
+		android:text="Y Coordinate accelerometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+	
+	<TableRow>
+	<TextView 
+		android:id="@+id/zaccelero"
+		android:text="Z Coordinate accelerometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+	
+	
+	<TableRow>
+	<TextView 
+		android:id="@+id/xmagneto"
+		android:text="X Coordinate magnetometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+	
+	<TableRow>
+	<TextView 
+		android:id="@+id/ymagneto"
+		android:text="Y Coordinate magnetometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+	
+	<TableRow>
+	<TextView 
+		android:id="@+id/zmagneto"
+		android:text="Z Coordinate magnetometer: "
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	/>
+	</TableRow>
+		
+</TableLayout>
