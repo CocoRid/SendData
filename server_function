@@ -1,0 +1,12 @@
+var acc = null;
+var magn = null;
+
+if(msg.payload.slice(0,4) == "acce") {
+	acc = msg;
+	acc.payload = acc.payload.slice(4);
+} else if(msg.payload.slice(0,4) == "magn") {
+	magn = msg;
+	magn.payload = magn.payload.slice(4)
+}
+
+return [acc, magn];
