@@ -43,12 +43,6 @@ public class MainActivity extends Activity {
         sensorManager.registerListener(capteur,
         		sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
         		SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(capteur,
-        		sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-        		SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(capteur,
-        		sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),
-        		SensorManager.SENSOR_DELAY_NORMAL);
         
     }
 
@@ -66,9 +60,6 @@ public class MainActivity extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -96,17 +87,16 @@ class Capteurs implements SensorEventListener {
 			client = new MqttClient(BROKER_URL, MqttClient.generateClientId(), new MemoryPersistence());
 	    	client.connect();
 		} catch (MqttPersistenceException e) {
-			System.out.println("Erreur de envois de message 1!");
+			System.out.println("Erreur : récupération d'un nouvel objet MemoryPersistence.");
 			e.printStackTrace();
 		} catch (MqttException e) {
-			System.out.println("Erreur de envois de message 2!");
+			System.out.println("Erreur : connexion.");
 			e.printStackTrace();
 		}
     }
     
 	public void onSensorChanged(SensorEvent event) {
 		String toSend = "";
-		// check sensor type
 		if(event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
 			xAcc.setText("X accelerometre: "+event.values[0]);
 			yAcc.setText("Y accelerometre: "+event.values[1]);
@@ -120,18 +110,17 @@ class Capteurs implements SensorEventListener {
 		}
 
 
-        try {
-        	final MqttTopic mqttTopic = client.getTopic(TOPIC);
-            
-    	    MqttMessage message = new MqttMessage(toSend.getBytes());
-    	    mqttTopic.publish(message);
-    	    System.out.println("Envois de : " + message);
-		} catch (MqttPersistenceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MqttException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(client.isConnected()) {
+	        try {
+	        	final MqttTopic mqttTopic = client.getTopic(TOPIC);
+	            
+	    	    MqttMessage message = new MqttMessage(toSend.getBytes());
+	    	    mqttTopic.publish(message);
+	    	    //System.out.println("Envois de : " + message);
+    	    } catch (MqttException e) {
+    			System.out.println("Erreur : envois du message.");
+				e.printStackTrace();
+			}
 		}
 		
 	}
