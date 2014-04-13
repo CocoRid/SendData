@@ -25,8 +25,10 @@ Pour réaliser ce projet, nous avons utilisé divers logiciels et matériaux :
 
 * Eclipse, pour le développement de l’application.
 * Mosquitto, pour le serveur MQTT local.
-* Node-Red, pour mettre en relation notre serveur MQTT local avec l’enregistrement des données dans des fichiers.
 * Un téléphone sous Android 4.4.2 (version CyanogenMod 11 non officiel). Capteurs présents sur ce téléphone : accéléromètre, magnétomètre, proximité, lumière ambiante.
+* Node-Red, pour mettre en relation notre serveur MQTT local avec l’enregistrement des données dans des fichiers.
+Voici la configuration que nous avons du réaliser sous Node-Red :
+![Capture d'écran de la configuration de notre serveur, réalisé avec Node-Red] (images/screenshot_node_red.png)
 
 ##Problèmes rencontrés et solutions apportés :
 
