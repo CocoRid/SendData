@@ -48,6 +48,18 @@ Nous avons donc recherché les sources de la librairie Paho pour les importer da
 
 Une fois ces dépendances ajoutés à notre projet, l’application a enfin pu démarrer et s'exécuter correctement.
 
+##Performances
+Nous affichons les données de nos capteurs en temps réel dans notre application. Cela ne pose aucun problème.
+
+Cependant, nous envoyons aussi en temps réel les données des capteurs via MQTT et nous pouvons remarquer qu'une erreur survient de temps en temps. 
+
+Notre première solution à ce problème fût d'essayer l'envois de données à la chaîne via un application java, pour vérifier si cela venait du serveur surchargé ou de notre application. Le problème n'étant pas réapparu, nous pouvons en déduire que cela vient de notre application.
+
+Notre seconde solution n'a pas pu être testé. Voici tout de même l'idée :
+Notre application Android envois des données en réalité plus rapidement que notre application java précédente. Nous avons pu remarquer qu'aucun problème survenais lorsque le téléphone ne bougeait pas et donc ne devais pas traiter trop de données. Lorsqu'on le bouge, beaucoup plus de données arrivent et cela cause à notre application de paralléliser des traitements de données et ainsi, d'envoyer en même temps plusieurs messages à MQTT.
+
+On peut donc en déduire que soit le serveur est surchargé, soit l'application Android n'arrive pas à paralléliser l'envois de messages à MQTT. Dans les deux cas, la solution est la même : mettre un timer pour chaque capteur et ne permettre l'envois de messages à notre serveur MQTT que tout les X ms (il faudra faire varier ce délais suivant le nombre de données que nous voulons absolument recevoir, avec un risque de surcharge et donc de revoir apparaître l'erreur). Ainsi, au lieu de perdre beaucoup de données, nous en perdons toujours mais nous pouvons tout de même en récupérer un certain nombre et de façon cohérente (il est préférable de recevoir toutes les X ms plutôt que de potentiellement ne rien recevoir pendant 10*X ms au moment critique).
+
 ##Perspectives
 Ce mini-projet a été réalisé pour servir de base et d'apprentissage à un futur projet potentiel. En effet, des étudiants de Polytech ont pour projet d'utiliser 3 capteurs bluetooth, positionné sur un mono-ski, pour récupérer certaines données et ensuite pouvoir les traiter.
 
